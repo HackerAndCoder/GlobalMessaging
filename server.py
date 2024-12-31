@@ -1,5 +1,5 @@
 from flask import Flask, request
-import json, random
+import json, random, os
 
 app = Flask(__name__)
 
@@ -61,4 +61,12 @@ def return_messages():
         
     return json.dumps({"messages": m})
 
-app.run(port = random.randint(5000, 5999), host="")
+
+if ('test.txt' in os.listdir()):
+    print(f"Running in dev mode")
+    app.run(port = random.randint(5000, 5999), host="")
+    
+else:
+    print(f"Running in prod mode")
+    app.run(port=5555, host="0.0.0.0")
+    

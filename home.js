@@ -33,12 +33,13 @@ function addMessage(content, from_self) {
   var message = document.createElement("p");
   message.className = "message";
   message.innerText = content;
+  message.style.color = "white";
   
   message.style.padding = "10px";
   message.style.borderRadius = "5px";
   
   if (from_self) {
-    message.style.backgroundColor = "lightgray";
+    //message.style.backgroundColor = "lightgray";
   }
   
   var spacer = 0;
@@ -49,7 +50,8 @@ function addMessage(content, from_self) {
     }
   }
   
-  document.getElementById("spacer").insertBefore(message, document.getElementById("spacer").firstChild);
+  document.body.insertBefore(message, document.getElementById("end"));
+  message.scrollIntoView({behavior: "instant"});
 }
 
 function isInRecieved(text) {
