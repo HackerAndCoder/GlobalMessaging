@@ -15,21 +15,41 @@ function messageRequest() {
 
 function parseNewMessages(json) {
   for (let i = 0; i < 40; i++) {
-    var m = json.messages[i]
-    if (m != null) {
-      if (!isInRecieved(m)) {
-        messages.push(m);
-        addMessage(m);
-        console.log(m);
+    var message = json.messages[i]
+    if (message != null) {
+      if (!isInRecieved(message.id)) {
+        messages.push(message.id);
+        
+        var from_self = message.sender == getCookie("name")
+        
+        addMessage(message.sender + " > " + message.contents, from_self);
+        console.log(message);
       }
     }
   }
 }
 
-function addMessage(content) {
+function addMessage(content, from_self) {
   var message = document.createElement("p");
+  message.className = "message";
   message.innerText = content;
-  document.body.insertBefore(message, document.body.children[3]);
+  
+  message.style.padding = "10px";
+  message.style.borderRadius = "5px";
+  
+  if (from_self) {
+    message.style.backgroundColor = "lightgray";
+  }
+  
+  var spacer = 0;
+  
+  for (var a = 0; a < document.body.children.length; a++) {
+    if (document.body.children[a].id == "spacer") {
+      spacer = a;
+    }
+  }
+  
+  document.getElementById("spacer").insertBefore(message, document.getElementById("spacer").firstChild);
 }
 
 function isInRecieved(text) {
@@ -63,6 +83,14 @@ if (getCookie("name") == "") {
   document.getElementById("username").innerText = getCookie("name");
 }
 
+document.getElementById('messagebox').onkeypress = function(e){
+    if (!e) e = window.event;
+    var keyCode = e.code || e.key;
+    if (keyCode == 'Enter'){
+      send();
+    }
+  }
+
 window.setInterval(messageRequest, 2000);
 
 function send() {
@@ -72,6 +100,11 @@ function send() {
   }
   
   var t = document.getElementById("messagebox").value;
+  
+  if (t == "" || t == " ") {
+    return;
+  }
+  
   document.getElementById("messagebox").value = "";
   fetch("/send/message", {
     method: "POST",

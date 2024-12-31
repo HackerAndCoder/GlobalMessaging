@@ -36,7 +36,7 @@ def message():
         
     n = online_users[d["name"]]
     
-    message_q.append([message_id, str(n) + "# " + d["name"] + ": " + d["message"]])
+    message_q.append([message_id, d["name"], d["message"]])
     message_id += 1
     print(f"{d['name']} send the message: {d['message']}")
     
@@ -44,7 +44,7 @@ def message():
         if (message[0] + 20) < message_id:
             message_q.remove(message)
         
-    print(message_q)
+    #print(message_q)
     
     return ""
     
@@ -53,7 +53,11 @@ def return_messages():
     m = {}
     
     for message in message_q:
-        m[message[0]] = message[1]
+        m[message[0]] = {
+            "id": message[0],
+            "sender": message[1],
+            "contents": message[2]
+        }
         
     return json.dumps({"messages": m})
 
