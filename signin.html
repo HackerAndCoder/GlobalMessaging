@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+</head>
+
+<body>
+    <input id="name" placeholder="your username">
+    <button id="in" onclick="signin();">Sign in</button>
+    
+    <script>
+    
+    function signin() {
+      var t = document.getElementById("name").value;
+      if (t == "") {
+        return;
+      }
+      
+      document.cookie = "name=" + t;
+      window.location.replace("/");
+    }
+    
+    </script>
+</body>
+
+</html>
