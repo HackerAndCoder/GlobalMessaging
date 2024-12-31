@@ -4,36 +4,56 @@
 <head>
     <style>
     
+    body {
+        background: rgb(30, 30, 30);
+    }
+    
     #messagebox {
         width: 80%;
+        border-radius: 40px;
+        border: 1px solid black;
+        opacity: 0.4;
+        padding: 10px;
+    }
+    
+    #messagebox:hover {
+        opacity: 0.7;
+    }
+    
+    #messagebox:focus {
+        opacity: 0.7;
     }
     
     #send {
         width: 9%;
-    
     }
     @media (max-width: 680px){
      #messagebox {
-        float: absolute;
-        height: 50px;
-        border-radius: 10px;
-         
-    }
-     
+        
+     }
     }
     #username {
         float:right;
+    }
+    
+    #messagething {
+       position: absolute;
+       left: 20px;
+       bottom: 10px;
+       width: 80%;
     }
     
     </style>
 </head>
 
 <body id="body">
-    
-    <input id="messagebox">
-    <div id="username">nosignin</div>
+    <div id="messagething">
+        <input id="messagebox" placeholder="Send a message">
+        <div id="username">nosignin</div>
+    </div>
     <div id="spacer"></div>
     <div id="end"></div>
+    
     
     <script src="home.js"></script>
 </body>
