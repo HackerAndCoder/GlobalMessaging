@@ -1,6 +1,5 @@
 body {
     background: rgb(30, 30, 30);
-
 }
 
 #messagebox {
@@ -12,6 +11,7 @@ body {
     margin: 0px;
     font-weight: 800;
     font-size: larger;
+    z-index: 100000;
 }
 
 #messagebox:hover {
@@ -33,6 +33,7 @@ body {
    left: 1%;
    bottom: 10px;
    width: 96.3%;
+   z-index: 1000;
 }
 
 #blackbar {
@@ -53,10 +54,15 @@ body {
     width: 98%;
     min-height: 2px;
     float: left;
+    z-index: 0;
 }
 
 .message:last-child {
     margin-bottom: 70px;
+}
+
+.message:first-child {
+    background: white;
 }
 
 .message-content {
@@ -70,7 +76,7 @@ body {
     overflow-wrap: null;
     opacity: 75%;
     color-scheme: dark;
-
+    z-index: 1;
 }
 
 .self {
@@ -135,6 +141,7 @@ body {
     left: 0px;
     bottom: 0px;
     height: 60px;
+    //z-index: 3;
 }
 
 @media only screen and (max-width: 800px){
@@ -153,4 +160,8 @@ body {
  #blocker {
      height: 66px;
  }
+}
+
+#first {
+    margin-top: 70px;
 }
