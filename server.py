@@ -3,12 +3,26 @@ import json, random, os
 
 app = Flask(__name__)
 
+print(f"Loading users from users.json...")
 if ("users.json" not in os.listdir()):
     with open("users.json", "w") as f: f.write('{"users": {}}')
+print(f"Loaded users...")
 
 message_q = []
 
 message_id = 0
+
+print(f"Loading messages...")
+if ("messages.json" not in os.listdir()):
+    print("No messages file found, creating...")
+    with open("messages.json", 'w') as f: f.write(json.dumps({"id": message_id, "messages": message_q}))
+
+with open("messages.json") as f:
+    content = json.loads(f.read())
+    message_q = content["messages"]
+    message_id = int(content["id"])
+
+print(f"Loaded {len(message_q)} messages...")
 
 def get_users_key(username):
     username = username.lower()
@@ -44,6 +58,7 @@ def handle_login():
     key = d["key"]
     
     if get_users_key(name) == key:
+        print(f"User {name} logged in")
         return json.dumps(
             {
                 "completed": True
@@ -52,13 +67,15 @@ def handle_login():
     
     if get_users_key(name) == "":
         set_user_key(name, key)
+        print(f"User {name} signed up")
         return json.dumps(
             {
                 "completed": True
             }
         )
     
-    print(f"{d}")
+    #print(f"{d}")
+    print(f"User {name} tried logging in with the wrong key")
     return json.dumps(
         {
             "completed": False,
@@ -124,11 +141,25 @@ def return_messages():
     return json.dumps({"messages": m})
 
 
-if ('.dev' in os.listdir()):
-    print(f"Running in dev mode")
-    app.run(port = random.randint(5000, 5999), host="")
-    
-else:
-    print(f"Running in prod mode")
-    app.run(port=5555, host="0.0.0.0")
-    
+try:
+    if ('.dev' in os.listdir()):
+        print(f"Running in dev mode")
+        app.run(port = random.randint(5000, 5999), host="")
+        
+    else:
+        print(f"Running in prod mode")
+        app.run(port=5555, host="0.0.0.0")
+
+finally:
+    print()
+    print(f"Saving {len(message_q)} messages...")
+    with open('messages.json', 'w') as f:
+        f.write(
+            json.dumps(
+                {
+                    "id":message_id,
+                    "messages": message_q
+                }
+            )
+        )
+    print(f"Exiting...")

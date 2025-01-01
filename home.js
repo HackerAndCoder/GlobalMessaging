@@ -16,7 +16,7 @@ function messageRequest() {
 }
 
 function parseNewMessages(json) {
-  for (let i = 0; i < 600; i++) {
+  for (let i = 0; i < 6000; i++) {
     var message = json.messages[i]
     if (message != null) {
       if (!isInRecieved(message.id)) {
