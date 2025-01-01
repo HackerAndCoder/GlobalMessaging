@@ -119,7 +119,7 @@ def return_messages():
     return json.dumps({"messages": m})
 
 
-if ('test.txt' in os.listdir()):
+if ('.dev' in os.listdir()):
     print(f"Running in dev mode")
     app.run(port = random.randint(5000, 5999), host="")
     
