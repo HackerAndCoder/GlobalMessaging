@@ -40,6 +40,7 @@ body {
    left: 0px;
    bottom: 0px;
    width: 96.3%;
+
 }
 
 #end {
@@ -60,13 +61,16 @@ body {
 
 .message-content {
     padding: 10px;
-    border-radius: 5px;
-    color: white;
+    border-radius: 20px;
+    color: blackß;
     padding: 10px;
     border: 1px solid darkorange;
     background: darkorange;
     width: fit-content;
-    overflow-wrap: ;
+    overflow-wrap: null;
+    opacity: 75%;
+    color-scheme: dark;
+
 }
 
 .self {
@@ -136,6 +140,7 @@ body {
 @media only screen and (max-width: 800px){
  #messagebox {
     width: 97%;
+    opacity: 0.4;
     min-height: 35px;
     max-height: 15%;
     font-size: large;
