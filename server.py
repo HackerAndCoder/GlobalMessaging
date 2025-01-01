@@ -1,4 +1,4 @@
-from flask import Flask, request
+from flask import Flask, Response, request
 import json, random, os
 
 app = Flask(__name__)
@@ -80,6 +80,11 @@ def signin():
 def js():
     with open("home.js") as f:
         return f.read()
+        
+@app.route('/style.css')
+def return_style():
+    with open('style.css') as f:
+        return Response(f.read(), content_type='text/css')
 
 @app.route('/send/message', methods = ["POST"])
 def message():
