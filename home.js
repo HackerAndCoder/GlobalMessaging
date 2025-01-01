@@ -22,36 +22,32 @@ function parseNewMessages(json) {
         
         var from_self = message.sender == getCookie("name")
         
-        addMessage(message.sender + " > " + message.contents, from_self);
+        addMessage(message.sender, message.contents, from_self);
         console.log(message);
       }
     }
   }
 }
 
-function addMessage(content, from_self) {
+function addMessage(sender, content, from_self) {
+  var container = document.createElement("div");
+  container.classList = "message";
+  
   var message = document.createElement("p");
-  message.className = "message";
-  message.innerText = content;
-  message.style.color = "white";
-  
-  message.style.padding = "10px";
-  message.style.borderRadius = "5px";
-  
+  message.classList = "message-content";
   if (from_self) {
-    //message.style.backgroundColor = "lightgray";
+    message.classList = "message-content self";
   }
   
-  var spacer = 0;
+  var username = document.createElement("div");
+  username.classList = "username"
+  username.innerText = sender;
+
+  message.innerText = sender + "> " + content;
+  container.append(message);
   
-  for (var a = 0; a < document.body.children.length; a++) {
-    if (document.body.children[a].id == "spacer") {
-      spacer = a;
-    }
-  }
-  
-  document.body.insertBefore(message, document.getElementById("end"));
-  message.scrollIntoView({behavior: "instant"});
+  document.body.insertBefore(container, document.getElementById("spacer"));
+  container.scrollIntoView({behavior: "instant"});
 }
 
 function isInRecieved(text) {
@@ -93,7 +89,7 @@ document.getElementById('messagebox').onkeypress = function(e){
     }
   }
 
-window.setInterval(messageRequest, 2000);
+window.setInterval(messageRequest, 750);
 
 function send() {
   if (getCookie("name") == "") {
