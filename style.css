@@ -5,7 +5,7 @@ body {
 
 #messagebox {
     width: 100%;
-    border-radius: 40px;
+    border-radius: 15px;
     border: 1px solid black;
     opacity: 0.4;
     padding: 10px;
@@ -62,7 +62,7 @@ body {
 .message-content {
     padding: 10px;
     border-radius: 20px;
-    color: blackß;
+    color: black;
     padding: 10px;
     border: 1px solid darkorange;
     background: darkorange;
