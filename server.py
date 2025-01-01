@@ -7,7 +7,58 @@ message_q = []
 
 message_id = 0
 
+def get_users_key(username):
+    try:
+        with open('users.json') as f:
+            contents = json.loads(f.read())
+            users = contents["users"]
+            if username in users.keys():
+                return users[username]
+            
+            return ""
+    except:
+        print(f"[ERROR] Error retrieving key for user {username}!")
+        return ""
+        
+def set_user_key(username, key):
+    with open("users.json") as f:
+        contents = json.loads(f.read())
+        
+    with open("users.json", "w") as f:
+        contents["users"][username] = key
+        f.write(json.dumps(contents))
+
 online_users = {}
+
+@app.route("/login", methods = ["POST"])
+def handle_login():
+    d = json.loads(request.get_data())
+    
+    name = d["name"]
+    key = d["key"]
+    
+    if get_users_key(name) == key:
+        return json.dumps(
+            {
+                "completed": True
+            }
+        )
+    
+    if get_users_key(name) == "":
+        set_user_key(name, key)
+        return json.dumps(
+            {
+                "completed": True
+            }
+        )
+    
+    print(f"{d}")
+    return json.dumps(
+        {
+            "completed": False,
+            "error": "Wrong Key!"
+        }
+    )
 
 @app.route('/')
 def home():

@@ -43,7 +43,7 @@ function addMessage(sender, content, from_self) {
   username.classList = "username"
   username.innerText = sender;
 
-  message.innerText = sender + "> " + content;
+  message.innerText = sender + ": " + content;
   container.append(message);
   
   document.body.insertBefore(container, document.getElementById("spacer"));
@@ -75,8 +75,9 @@ function getCookie(cname) {
   return "";
 }
 
-if (getCookie("name") == "") {
-  document.getElementById("username").innerText = "younosignin";
+if (getCookie("name") == "" || getCookie("key") == "") {
+  window.location.replace("/signin.html");
+  //document.getElementById("username").innerText = "younosignin";
 } else {
   document.getElementById("username").innerText = getCookie("name");
 }
@@ -111,4 +112,17 @@ function send() {
       "message": t
     })
   });
+}
+
+function setCookie(cname, cvalue, exdays) {
+  const d = new Date();
+  d.setTime(d.getTime() + (exdays*24*60*60*1000));
+  let expires = "expires="+ d.toUTCString();
+  document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+}
+
+function signout() {
+  setCookie("name", "", 3);
+  setCookie("key", "", 3);
+  window.location.replace("/signin.html");
 }

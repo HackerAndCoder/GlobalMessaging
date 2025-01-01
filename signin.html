@@ -7,18 +7,51 @@
 
 <body>
     <input id="name" placeholder="your username">
+    <input type="password" id="key" placeholder="your key">
+    
     <button id="in" onclick="signin();">Sign in</button>
     
     <script>
     
     function signin() {
       var t = document.getElementById("name").value;
-      if (t == "") {
+      var k = document.getElementById("key").value;
+      if (t == "" || k == "") {
         return;
       }
       
-      document.cookie = "name=" + t;
+      fetch("/login", {
+        method: "POST",
+        body: JSON.stringify(
+          {
+            "name": t,
+            "key": k
+          }
+        )
+      }).then((response) => response.json()).then((json) => returnLogin(json))
+    }
+    
+    function returnLogin(json) {
+      console.log(json);
+      var comp = json.completed;
+      if (!comp) {
+        alert(json.error);
+        return;
+      }
+      
+      var t = document.getElementById("name").value;
+      var k = document.getElementById("key").value;
+      
+      setCookie("name", t, 3);
+      setCookie("key", k, 3);
       window.location.replace("/");
+    }
+    
+    function setCookie(cname, cvalue, exdays) {
+      const d = new Date();
+      d.setTime(d.getTime() + (exdays*24*60*60*1000));
+      let expires = "expires="+ d.toUTCString();
+      document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
     }
     
     </script>
