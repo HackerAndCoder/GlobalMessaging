@@ -4,6 +4,8 @@ var messages = new Array();
 
 var rids = {};
 
+var parsed_messages = false;
+
 function messageRequest() {
   fetch("/get/messages", {
     method: "POST",
@@ -46,8 +48,14 @@ function addMessage(sender, content, from_self) {
   message.innerText = sender + ": " + content;
   container.append(message);
   
+  if (parsed_messages == false) {
+    container.id = "first";
+  }
+  
   document.body.insertBefore(container, document.getElementById("spacer"));
   container.scrollIntoView({behavior: "instant"});
+  
+  parsed_messages = true;
 }
 
 function isInRecieved(text) {
