@@ -33,18 +33,7 @@
         border: 1px solid black;
     }
 
-    @media only screen and (max-width: 800px){
-     #messagebox {
-        width: 97%;
-        min-height: 35px;
-        max-height: 15%;
-        font-size: large;
-     }
-     
-     #end {
-         height: 60px;
-     }
-    }
+    
     
     #messagething {
        position: fixed;
@@ -141,6 +130,33 @@
         margin-top: 11px;
     }
     
+    #blocker {
+        display: block;
+        background: rgb(30, 30, 30);
+        width: 100%;
+        position: fixed;
+        left: 0px;
+        bottom: 0px;
+        height: 60px;
+    }
+    
+    @media only screen and (max-width: 800px){
+     #messagebox {
+        width: 97%;
+        min-height: 35px;
+        max-height: 15%;
+        font-size: large;
+     }
+     
+     #end {
+         height: 60px;
+     }
+     
+     #blocker {
+         height: 66px;
+     }
+    }
+    
     </style>
 </head>
 
@@ -153,10 +169,10 @@
     </div>
     
     <div id="messagething">
+        <div id="blocker"></div>
         <input id="messagebox" placeholder="Send a message">
         
     </div>
-    <div style="min-height: 100px;"></div>
     
     <script src="home.js"></script>
     

@@ -3,11 +3,15 @@ import json, random, os
 
 app = Flask(__name__)
 
+if ("users.json" not in os.listdir()):
+    with open("users.json", "w") as f: f.write('{"users": {}}')
+
 message_q = []
 
 message_id = 0
 
 def get_users_key(username):
+    username = username.lower()
     try:
         with open('users.json') as f:
             contents = json.loads(f.read())
@@ -21,6 +25,7 @@ def get_users_key(username):
         return ""
         
 def set_user_key(username, key):
+    username = username.lower()
     with open("users.json") as f:
         contents = json.loads(f.read())
         
@@ -35,6 +40,7 @@ def handle_login():
     d = json.loads(request.get_data())
     
     name = d["name"]
+    name = name.lower()
     key = d["key"]
     
     if get_users_key(name) == key:

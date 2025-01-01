@@ -3,13 +3,75 @@
 
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-</head>
+    <style>
+    
+    body {
+        background: rgb(30, 30, 30);
+    }
+    
+    input {
+        padding: 10px;
+        border-radius: 30px;
+        border: 1px solid black;
+        background: grey;
+        color: black;
+        margin: 12px;
+        margin-bottom: 7px;
+    }
+    
+    .container {
+        width: 100%;
+        heigh: 100%;
+        justify-content: center;
+        display: flex;
+        flex-direction: column;
+    }
+    
+    #in {
+        margin-top: 12px;
+        width: 188px;
+        padding: 10px;
+        border-radius: 30px;
+        border: 0px solid black;
+        background: rgb(100, 100, 100);
+    }
+    
+    #in:hover {
+        background: rgb(200, 200, 200);
+        animation-name: buttonpop;
+        scale: 107%;
+        background: orange;
+        animation-duration: 300ms;
+    }
+    
+    @keyframes buttonpop {
+        from {scale: 100%;}
+        to {scale: 107%; background: orange;}
+    }
+    
+    .full {
+        //width: 50%;
+        display: block;
+        margin: auto;
+    }
+    
+    .title {
+        color: white;
+        font-family: 'Courier New', Courier, monospace;
+    }
+    
+    </style>
 
 <body>
-    <input id="name" placeholder="your username">
-    <input type="password" id="key" placeholder="your key">
+    <div class="container">
+        <div class="full"><h1 class="title">Sign in or log up</h1></div>
+        
+        <div class="full"><input id="name" placeholder="Username"></div>
+        <div class="full"><input type="password" id="key" placeholder="Passkey"></div>
+        
+        <div class="full"><button id="in" onclick="signin();">Sign in</button></div>
     
-    <button id="in" onclick="signin();">Sign in</button>
+    </div>
     
     <script>
     
@@ -19,6 +81,8 @@
       if (t == "" || k == "") {
         return;
       }
+      
+      t = t.toLowerCase();
       
       fetch("/login", {
         method: "POST",
@@ -41,6 +105,8 @@
       
       var t = document.getElementById("name").value;
       var k = document.getElementById("key").value;
+      
+      t = t.toLowerCase()
       
       setCookie("name", t, 3);
       setCookie("key", k, 3);
