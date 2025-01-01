@@ -24,14 +24,14 @@ function parseNewMessages(json) {
         
         var from_self = message.sender == getCookie("name")
         
-        addMessage(message.sender, message.contents, from_self);
+        addMessage(message.sender, message.contents, from_self, message.id);
         console.log(message);
       }
     }
   }
 }
 
-function addMessage(sender, content, from_self) {
+function addMessage(sender, content, from_self, id) {
   var container = document.createElement("div");
   container.classList = "message";
   
@@ -47,6 +47,16 @@ function addMessage(sender, content, from_self) {
 
   message.innerText = sender + ": " + content;
   container.append(message);
+  
+  container.id = id;
+  
+  message.addEventListener("click", (event) => {
+    if (message.classList.contains("clicked")) {
+      message.classList.remove("clicked");
+      return;
+    }
+    message.classList.add("clicked");
+  })
   
   if (parsed_messages == false) {
     container.id = "first";

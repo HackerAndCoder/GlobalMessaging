@@ -9,7 +9,7 @@ body {
     opacity: 0.4;
     padding: 10px;
     margin: 0px;
-    font-weight: 700;
+    font-weight: 800;
     font-size: larger;
     z-index: 100000;
 }
@@ -142,7 +142,6 @@ body {
     left: 0px;
     bottom: 0px;
     height: 60px;
-    z-index: 3;
 }
 
 @media only screen and (max-width: 800px){
@@ -165,4 +164,8 @@ body {
 
 #first {
     margin-top: 70px;
+}
+
+.clicked {
+    background: lightcoral;
 }
